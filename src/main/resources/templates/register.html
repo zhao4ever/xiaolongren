@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+    xmlns:th="http://www.thymeleaf.org" 
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link href='http://fonts.googleapis.com/css?family=Montserrat:400,700'
+	rel='stylesheet' type='text/css' />
+<link rel="stylesheet" href="css/register.css" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>小龙人中文堂</title>
+</head>
+<body>
+	<div class="container">
+		<header>
+			<h1 style="text-align:center">
+				<span>欢迎您注册小龙人中文堂！</span>
+			</h1>
+		</header>
+		<div class="form">
+			<form id="contactform" action="rigister" method="post" th:object="${registerPageInfo}">
+			
+				<!-- 用户名 -->
+				<p class="contact">
+					<label for="username">用户名：</label>
+				</p>
+				<input id="userName" name="username" placeholder="以字母开头的字母数字组合" required="required"
+					tabindex="1" type="text" th:field="*{username}" />
+				<p style="color: red;" th:if="${#fields.hasErrors('username')}" th:errors="*{username}" />
+					
+				<!-- 密码 -->
+				<p class="contact">
+					<label for="password">密码：</label>
+				</p>
+				<input type="password" id="password" name="password" required="required" th:field="*{password}" tabindex="2" />
+				<p style="color: red;" th:if="${#fields.hasErrors('password')}" th:errors="*{password}" />
+				
+				<p class="contact">
+					<label for="repassword">确认密码：</label>
+				</p>
+				<input type="password" id="repassword" name="repassword" required="required" th:field="*{conformationPwd}" tabindex="3" />
+				<p style="color: red;" th:if="${#fields.hasErrors('conformationPwd')}" th:errors="*{conformationPwd}" />
+				
+				<!-- 姓名 -->
+				<p class="contact">
+					<label for="name">姓  名</label>
+				</p>
+				<input id="name" name="name" placeholder="小龙人"
+					tabindex="4" type="text" required="required" th:field="*{name}" />
+
+				<!-- 邮箱 -->
+				<p class="contact">
+					<label for="email">Email</label>
+				</p>
+				<input id="email" name="email" placeholder="example@domain.com"
+					required="required" type="email" th:field="*{email}" tabindex="5" />
+				
+				<!-- 电话 -->
+				<p class="contact">
+					<label for="phone">电话：</label>
+				</p>
+				<input id="phone" name="phone" placeholder="080 1234 5678" required="required"
+					type="text" th:field="*{phone}" tabindex="6" />
+				
+				<!-- 微信号 -->
+				<p class="contact">
+					<label for="weixin">微信号</label>
+				</p>
+				<input id="weixin" name="weixin"
+					tabindex="7" type="text" th:field="*{weixin}" />
+					
+				<!-- 住址 -->
+				<p class="contact">
+					<label for="email">地址</label>
+				</p>
+				<input id="address" name="address" placeholder="东京都江户川区西葛西"
+					required="required" type="text" th:field="*{address}" tabindex="8" />
+
+				<!-- 
+				<fieldset>
+					<label>Birthday</label> <label class="month"> <select
+						class="select-style" name="BirthMonth">
+							<option value="">Month</option>
+							<option value="01">January</option>
+							<option value="02">February</option>
+							<option value="03">March</option>
+							<option value="04">April</option>
+							<option value="05">May</option>
+							<option value="06">June</option>
+							<option value="07">July</option>
+							<option value="08">August</option>
+							<option value="09">September</option>
+							<option value="10">October</option>
+							<option value="11">November</option>
+							<option value="12">December</option>
+					</select>
+					</label> <label>Day<input class="birthday" maxlength="2"
+						name="BirthDay" placeholder="Day" required="required" />
+					</label> <label>Year <input class="birthyear" maxlength="4"
+						name="BirthYear" placeholder="Year" required="required" />
+					</label>
+				</fieldset>
+
+				<select class="select-style gender" name="gender">
+					<option value="select">my sex is</option>
+					<option value="m">Male</option>
+					<option value="f">Female</option>
+					<option value="others">Other</option>
+				</select>
+				<br/>
+				<br/>
+				-->
+
+				<br/>
+				<input class="buttom" name="submit"
+					id="submit" tabindex="8" value="注册!" type="submit" />
+			</form>
+		</div>
+	</div>
+</body>
+</html>

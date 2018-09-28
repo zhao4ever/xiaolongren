@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+    xmlns:th="http://www.thymeleaf.org" 
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link href='http://fonts.googleapis.com/css?family=Montserrat:400,700'
+	rel='stylesheet' type='text/css' />
+<link rel="stylesheet" href="css/login.css" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>小龙人中文堂</title>
+</head>
+<body>
+    <div class="logo"></div> 
+	    <div class="login-block" th:object="${loginPageInfo}">
+		<h1>用户登陆</h1>
+		<form method="post" action="login">
+		    <input type="text" th:field="*{username}" placeholder="Username" required="required" id="username" />
+		    <p style="color: red;" th:if="${#fields.hasErrors('username')}" th:errors="*{username}" />
+		    
+		    <input type="password" th:field="*{password}" placeholder="Password" required="required" id="password" />
+		    <p style="color: red;" th:if="${#fields.hasErrors('password')}" th:errors="*{password}" />
+		    
+		    <div style="width:49%;padding:0;margin:0px 0px 10px;float:left;box-sizing:border-box;">
+		    	<button id="submit">登 陆</button>
+		    </div>
+		</form>
+		<form method="get" action="guest">
+		    <div style="width:49%;padding:0;margin:0px 0px 10px;float:right;box-sizing:border-box;">
+		  	    <button id="guest">游客登陆</button>
+		    </div>
+		</form>
+		<p class="message">还没注册？<a href="register">点击注册！</a> </p>
+	    </div>
+
+</body>
+</html>
