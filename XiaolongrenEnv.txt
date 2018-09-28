@@ -1,0 +1,149 @@
+----------------------------------------------------------------------------------
+Å°java installation
+
+'-change to root
+sudo -i
+
+'-install wget
+yum install wget
+
+'-download jdk8
+wget --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jdk/8u144-b01/090f390dda5b47b9b721c7dfaa008135/jdk-8u144-linux-x64.rpm"
+
+'-install jdk8
+sudo yum localinstall jdk-8u102-linux-x64.rpm
+
+'-confirm java version
+java -version
+
+installation:
+/usr/java/jdk1.8.0_144
+
+----------------------------------------------------------------------------------
+Å°Tomcat installation
+
+'-create tomcat group
+sudo groupadd tomcat
+
+'-create tomcat user
+sudo useradd -M -s /bin/nologin -g tomcat -d /opt/tomcat tomcat
+
+'-download tomcat
+wget --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" "http://ftp.meisei-u.ac.jp/mirror/apache/dist/tomcat/tomcat-8/v8.5.20/bin/apache-tomcat-8.5.20.tar.gz"
+
+'-create tomcat folder
+sudo mkdir /opt/tomcat
+
+'-unzip tomcat
+sudo tar xvf apache-tomcat-8*tar.gz -C /opt/tomcat --strip-components=1
+
+'-give the tomcat group ownership over the entire installation directory:
+sudo chgrp -R zhao4ever /opt/tomcat
+sudo chmod -R g+r conf
+sudo chmod g+x conf
+sudo chown -R tomcat webapps/ work/ temp/ logs/
+
+-
+sudo vi /etc/systemd/system/tomcat.service
+-------------------------start-----------------------------
+# Systemd unit file for tomcat
+[Unit]
+Description=Apache Tomcat Web Application Container
+After=syslog.target network.target
+
+[Service]
+Type=forking
+
+Environment=JAVA_HOME=/usr/lib/jvm/jre
+Environment=CATALINA_PID=/opt/tomcat/temp/tomcat.pid
+Environment=CATALINA_HOME=/opt/tomcat
+Environment=CATALINA_BASE=/opt/tomcat
+Environment='CATALINA_OPTS=-Xms512M -Xmx1024M -server -XX:+UseParallelGC'
+Environment='JAVA_OPTS=-Djava.awt.headless=true -Djava.security.egd=file:/dev/./urandom'
+
+ExecStart=/opt/tomcat/bin/startup.sh
+ExecStop=/bin/kill -15 $MAINPID
+
+User=tomcat
+Group=tomcat
+UMask=0007
+RestartSec=10
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+-------------------------end-----------------------------
+
+sudo systemctl daemon-reload
+
+'-start tomcat
+sudo systemctl start tomcat
+Å¶ErrorÅF
+Job for tomcat.service failed because the control process exited with error code. See "systemctl status tomcat.service" and "journalctl -xe" for details.
+Solution:Give tomcat folder read permission to user tomcat
+cd /opt && sudo chown -R tomcat tomcat/
+
+'-check tomcat status
+sudo systemctl status tomcat
+
+'-set tomcat as system service
+sudo systemctl enable tomcat
+
+
+Å°Firewall
+-VPC nenwork
+add 8080 port
+https://console.cloud.google.com/networking/firewalls/list?project=integral-berm-157306&tab=INGRESS
+
+IP ranges:[0.0.0.0/0]
+tcp:8080:[tcp:8080]
+
+
+----------------------------------------------------------------------------------
+Å°MongoDB installation
+
+-download mongoDB
+wget --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" "https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-3.4.9.tgz"
+
+
+sudo mkdir /opt/mongodb
+sudo tar xvf mongodb-linux-x86_64-3.4.9.tgz -C /opt/mongodb --strip-components=1
+sudo chgrp -R zhao4ever /opt/mongodb
+
+-1.sudo /opt/mongodb/bin/mongod --port 27017 --dbpath /opt/mongodb/data/db
+
+-2.sudo /opt/mongodb/bin/mongo --port 27017
+
+-3.use admin
+db.createUser({user:"admin",pwd:"test01",roles:[{role:"userAdminAnyDatabase",db:"admin"}]})
+
+-4.sudo /opt/mongodb/bin/mongod --port 27017 --dbpath /opt/mongodb/data/db
+
+-5.sudo /opt/mongodb/bin/mongo --port 27017 -u "admin" -p "test01" --authenticationDatabase "admin"
+
+-6.use xiaolongren
+db.createUser({user:"xiaolongren",pwd:"test01",roles:[{role:"readWrite",db:"xiaolongren"}]})
+
+-7.sudo /opt/mongodb/bin/mongod --fork --port 27017 --dbpath /opt/mongodb/data/db --logpath /opt/mongodb/logs/xiaolongren.log --auth
+
+-8.sudo /opt/mongodb/bin/mongo --port 27017 -u "xiaolongren" -p "test01" --authenticationDatabase "xiaolongren"
+
+
+----------------------------------------------------------------------------------
+Å°Maintenance
+sudo systemctl stop tomcat(PuTTY)
+sudo systemctl status tomcat(PuTTY)
+replace old war by new war file(WinSCP)
+sudo systemctl start tomcat(PuTTY)
+
+DB
+
+----------------------------------------------------------------------------------
+Å°Google shell
+
+
+gcloud compute copy-files C:\03_training\workspace\xiaolongren\target\xiaolongren-0.0.1-SNAPSHOT.war zhao4ever:/home/zhao4ever/
+
+
+
+
