@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+    xmlns:th="http://www.thymeleaf.org" 
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link href='http://fonts.googleapis.com/css?family=Montserrat:400,700'
+	rel='stylesheet' type='text/css' />
+<link rel="stylesheet" href="css/login.css" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>小龙人中文堂</title>
+</head>
+<body>
+    <div class="logo"></div>
+    <form method="post" action="login"> 
+	    <div class="login-block" th:object="${userLoginInfo}">
+		<h1>Login</h1>
+		    <input type="text" th:field="*{username}" placeholder="Username" id="username" />
+		    <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Name Error</p>
+		    
+		    <input type="password" th:field="*{password}" placeholder="Password" id="password" />
+		    <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">password Error</p>
+		    
+		    <button id="submit">Submit</button>
+		<p class="message">Not registered? <a href="register">Create an account</a> </p>
+	    </div>
+    </form>
+</body>
+</html>

@@ -1,0 +1,43 @@
+
+<!DOCTYPE HTML>
+<html>
+	<head>
+	  <title>blog.kevinchisholm.com | Getting Started with HTML5 Drag-and-Drop - Part IV </title>
+	  <link href="css/drag-and-drop.css" type="text/css" rel="stylesheet" />
+	</head>
+<body>
+	<article>
+		<header>
+			<img src="images/html5-logo.png" class="html5-logo" >
+			<hgroup>
+			<h1>Getting Started with HTML5 Drag-and-Drop</h1>
+			<h2><a href="http://blog.kevinchisholm.com">blog.kevinchisholm.com</a></h2>
+			<h3>Part IV: Multiple Draggables and Multiple Droppables</h3>
+			</hgroup>
+		</header>
+		<section id="content">
+			<p class="instructions">Drag any blue square to any light brown box, or back to its original container. Each light brown box in the top row will accept only one blue square at a time. If you want to view the JavaScript for this example, click <a href="js/part-iv.js" target="_blank">here</a>.</p>
+			<div class="drop-elements">
+				<div class="dropElement droppable"></div>
+				<div class="dropElement droppable"></div>
+				<div class="dropElement droppable"></div>
+				<div class="dropElement droppable"></div>
+			</div>
+			<div class="drag-elements droppable multipleChildren hasChild">
+				<div id="drag1" class="dragElement redBorder">Drag me!</div>
+				<div id="drag2" class="dragElement greenBorder">Drag me!</div>
+				<div id="drag3" class="dragElement orangeBorder">Drag me!</div>
+				<div id="drag4" class="dragElement pinkBorder">Drag me!</div>
+			</div>
+		<section>
+		<div class="copyright">
+			<div class="text">
+				&copy; 2014 <a href="http://blog.kevinchisholm.com">Kevin Chisholm</a>
+			</div>
+		</div>
+	</article>
+	<script src="js/jquery-1.11.1.min.js"></script>
+	<script src="js/part-iv.js"></script>
+  	<img src="http://bit.ly/bartSimpsonSkateboard200X200" style="display:none;">
+</body>
+</html>
